@@ -16,10 +16,10 @@ jobs:
       - checkout
       - run:
           name: "Setup my custom environment variable"
-          command: echo 'export ${MY_NAME}' >> "BASH_ENV"
+          command: echo 'export MY_NAME' >> "BASH_ENV"
       - run:
           name: "What is my custom environment variable"
-          command: echo ${MY_NAME} 
+          command: echo $MY_NAME
 
 
 # Invoke jobs via workflows
