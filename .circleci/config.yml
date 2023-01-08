@@ -4,22 +4,38 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+commands:
+  print_pipeline_id:
+    description: "A very simple command for to print workflow id for this pipeline"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
+    steps:
+      - run: echo << parameters.to >>
 jobs:
-  build:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  myjob:
     docker:
       - image: circleci/node:13.8.0
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - checkout
-      - run:
-          name: "Setup my custom environment variable"
-          command: echo 'export MY_NAME="Okoriechukwu"' >> "$BASH_ENV"
-      - run:
-          name: "What is my custom environment variable"
-          command: echo $MY_NAME
+      - print_pipeline_id:
+          to: $CIRCLE_WORKFLOW_ID
+  # build:
+  #   # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   # Add steps to the job
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Setup my custom environment variable"
+  #         command: echo 'export MY_NAME="Okoriechukwu"' >> "$BASH_ENV"
+  #     - run:
+  #         name: "What is my custom environment variable"
+  #         command: echo $MY_NAME
+  
 
 
 # Invoke jobs via workflows
